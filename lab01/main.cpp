@@ -42,10 +42,23 @@ ulamek add(ulamek a, ulamek b) {
   };
 }
 
+ulamek subtract(ulamek a, ulamek b) {
+  return add(a, {
+    .licznik = -2 * b.licznik,
+    .mianownik = b.mianownik
+  })
+}
+
 int main() {
-  ulamek wynik = add({.licznik = 2, .mianownik = 2}, {.licznik = 4, .mianownik = 2});
+  ulamek wynikAdd = add({2, 2}, {4, 2});
+  
+  wynikAdd.skroc();
+
+  ulamek wynikSub = sub({2,2}, {4,2});
+  
   std::cout << nwd(24, 18) << '\n';
   std::cout << nww(24, 18) << '\n';
-  std::cout << wynik.licznik << '/' << wynik.mianownik << '\n';
+  std::cout << wynikAdd.licznik << '/' << wynikAdd.mianownik << '\n';
+  std::cout << wynikSub.licznik << '/' << wynikSub.mianownik << '\n';
   return 0;
 }

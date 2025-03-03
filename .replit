@@ -1,6 +1,6 @@
-run = "g++ -o lab01/main lab01/main.cpp && ./lab01/main"
+run = "g++ -o lab01/main lab01/lab01/main.cpp"
 [nix]
 channel = "stable-24_05"
 
 [deployment]
-run = ["sh", "-c", "g++ -o lab01/main lab01/main.cpp && ./lab01/main"]
+run = ["sh", "-c", "g++ -o lab01/main lab01/lab01/main.cpp"]
