@@ -44,9 +44,9 @@ ulamek add(ulamek a, ulamek b) {
 
 ulamek subtract(ulamek a, ulamek b) {
   return add(a, {
-    .licznik = -2 * b.licznik,
+    .licznik = -1 * b.licznik,
     .mianownik = b.mianownik
-  })
+  });
 }
 
 int main() {
@@ -54,7 +54,7 @@ int main() {
   
   wynikAdd.skroc();
 
-  ulamek wynikSub = sub({2,2}, {4,2});
+  ulamek wynikSub = subtract({2,2}, {4,2});
   
   std::cout << nwd(24, 18) << '\n';
   std::cout << nww(24, 18) << '\n';
