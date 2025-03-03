@@ -5,3 +5,14 @@ channel = "stable-24_05"
 
 [deployment]
 run = ["sh", "-c", "g++ -o lab01/main lab01/main.cpp"]
+
+[workflows]
+runButton = "Run"
+
+[[workflows.workflow]]
+name = "Run"
+author = 40025330
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "g++ -o lab01/main lab01/main.cpp && ./lab01/main"
