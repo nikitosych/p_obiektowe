@@ -38,7 +38,7 @@ int main() {
   // punkt h = {1,3};
 
   trojkat ABC;
-  punkt p
+  punkt p;
 
   std::cout << "Wprowadz wspolrzedna x punktu A trojkatu ABC\n";
   std::cin >> ABC.punkty[0].x;
