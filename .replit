@@ -10,9 +10,9 @@ run = ["sh", "-c", "g++ -o lab01/main lab01/main.cpp"]
 runButton = "Run"
 
 [[workflows.workflow]]
-name = "Run"
+name = "zad01"
 author = 40025330
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "g++ -o lab01/main lab01/main.cpp && ./lab01/main"
+args = "g++ -o lab01/zad01 lab01/zad01.cpp && ./lab01/zad01"
