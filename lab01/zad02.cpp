@@ -33,10 +33,6 @@ struct trojkat {
 };
 
 int main() {
-  // trojkat ABC = {{{1,1},{2,4},{4,1}}};
-  // punkt g = {2,2};
-  // punkt h = {1,3};
-
   trojkat ABC;
   punkt p;
 
@@ -60,25 +56,13 @@ int main() {
   std::cout << "Wprowadz wspolrzedna y punktu p\n";
   std::cin >> p.y;
 
-  
-
   trojkat ABp = {{ABC.punkty[0], ABC.punkty[1], p}};
   trojkat BCp = {{ABC.punkty[1], ABC.punkty[2], p}};
   trojkat ACp = {{ABC.punkty[0], ABC.punkty[2], p}};
 
-  // trojkat ABh = {{ABC.punkty[0], ABC.punkty[1], h}};
-  // trojkat BCh = {{ABC.punkty[1], ABC.punkty[2], h}};
-  // trojkat ACh = {{ABC.punkty[0], ABC.punkty[2], h}};
-  
-  // std::cout << ABC.obwod() << '\n'  << ABC.pole() << '\n';
-
   if (ABp.pole() + BCp.pole() + ACp.pole() == ABC.pole())
     std::cout << "Punkt p nalezy do ABC\n";
   else std::cout << "Punkt p nie nalezy do ABC\n";
-
-  // if (ABh.pole() + BCh.pole() + ACh.pole() == ABC.pole())
-  //   std::cout << "Punkt h nalezy do ABC\n";
-  // else std::cout << "Punkt h nie nalezy do ABC\n";
   
   return 0;
 }
