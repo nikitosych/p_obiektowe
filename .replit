@@ -16,3 +16,12 @@ author = 40025330
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "g++ -o lab01/zad01 lab01/zad01.cpp && ./lab01/zad01"
+
+[[workflows.workflow]]
+name = "zad02"
+mode = "sequential"
+author = 40025330
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "g++ -o lab01/zad02 lab01/zad02.cpp && ./lab01/zad02"
