@@ -29,7 +29,7 @@ int nww(int a, int b) {
 ulamek add(ulamek a, ulamek b) {
   if (a.mianownik==b.mianownik) {
     return {
-      .licznik = a.licznik, 
+      .licznik = a.licznik + b.licznik, 
       .mianownik = a.mianownik
     };
   } 
@@ -37,8 +37,8 @@ ulamek add(ulamek a, ulamek b) {
   int w = nww(a.mianownik, b.mianownik);
   
   return {
-    .mianownik = w,
-    .licznik = (a.licznik*(w/a.mianownik)) + (b.licznik*(w/b.mianownik))
+    .licznik = (a.licznik*(w/a.mianownik)) + (b.licznik*(w/b.mianownik)),
+    .mianownik = w
   };
 }
 
