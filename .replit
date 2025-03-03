@@ -7,7 +7,7 @@ channel = "stable-24_05"
 run = ["sh", "-c", "g++ -o lab01/main lab01/main.cpp"]
 
 [workflows]
-runButton = "Run"
+runButton = "zad02"
 
 [[workflows.workflow]]
 name = "zad01"
