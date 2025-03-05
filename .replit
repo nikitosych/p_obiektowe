@@ -10,7 +10,7 @@ run = ["sh", "-c", "g++ -o lab01/main lab01/main.cpp"]
 runButton = "zad02"
 
 [[workflows.workflow]]
-name = "zad01"
+name = "lab01zad01"
 author = 40025330
 
 [[workflows.workflow.tasks]]
@@ -18,10 +18,28 @@ task = "shell.exec"
 args = "g++ -o lab01/zad01 lab01/zad01.cpp && ./lab01/zad01"
 
 [[workflows.workflow]]
-name = "zad02"
+name = "lab01zad02"
 mode = "sequential"
 author = 40025330
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "g++ -o lab01/zad02 lab01/zad02.cpp && ./lab01/zad02"
+
+[[workflows.workflow]]
+name = "lab02zad02"
+mode = "sequential"
+author = 40025330
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "g++ -o lab02/zad02 lab02/zad02.cpp && ./lab02/zad02"
+
+[[workflows.workflow]]
+name = "lab02zad03"
+mode = "sequential"
+author = 40025330
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "g++ -o lab02/zad03 lab02/zad03.cpp && ./lab02/zad03"
