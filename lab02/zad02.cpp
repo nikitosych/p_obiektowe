@@ -57,7 +57,7 @@ public:
   }
 
   Zespolona mult(Zespolona* z) {
-    return {this->re * z.re - this->im * z.im, this->re * z.im + this->im * z.re};
+    return {this->re * z->re - this->im * z->im, this->re * z->im + this->im * z->re};
   }
 
   Zespolona divide(Zespolona* z) {
