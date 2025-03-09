@@ -61,9 +61,15 @@ public:
   }
 
   Zespolona divide(Zespolona* z) {
-    if (z.re == 0 && z.im == 0) std::cout << "UWAGA: dzielisz przez 0 + 0i\n";
+    if (z->re == 0 && z->im == 0) std::cout << "UWAGA: dzielisz przez 0 + 0i\n";
     
-    return {(this->re * z.re + this->im * z.im)/(pow(z.re, 2) + pow(z.im, 2)), (z.re * this->im - this->re * z.im)/(pow(z.re, 2) + pow(z.im, 2))}
+    return {(this->re * z->re + this->im * z->im)/(pow(z->re, 2) + pow(z->im, 2)), 
+            (z->re * this->im - this->re * z->im)/(pow(z->re, 2) + pow(z->im, 2))};
+  }
+
+  friend std::ostream& operator<<(std::ostream& os, const Zespolona& z) {
+    os << z.re << " + " << z.im << "i";
+    return os;
   }
 
 private:
