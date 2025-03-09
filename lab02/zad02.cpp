@@ -25,17 +25,49 @@ public:
 
   void printTrig() {
     // https://pl.wikipedia.org/wiki/Liczby_zespolone#Posta%C4%87_trygonometryczna
-
-    std::cout << "z = " <<
-              << 
+    double kat = this->phi();
+    double modul = this->mod();
+    
+    std::cout << "z = "
+              << modul
+              << "(cos(" << kat << ") + isin(" << kat << ")) = "
+              << modul << "(" << cos(kat) << " + " << sin(kat) << "i) = "
+              << modul * cos(kat) << " + " << modul * sin(kat) << "i\n";
   }
 
-  void printPower() {
+  void printPower(int n) {
+    double kat = phi();
+    double modul = this->mod();
     
+    std::cout << "z^" << n << " = "
+              << modul << "^" << n
+              << "(cos(" << kat << ") + isin(" << kat << "))^" << n << " = "
+              << modul << "^" << n << "(cos(" << n << "*" << kat << ") + isin(" << n << "*" << kat << "))" << " = "
+              << pow(modul, n) << "(" << cos(n*kat) << " + " << sin(n*kat) << "i) = " 
+              << pow(modul, n) * cos(n*kat) << " + " << pow(modul, n) * sin(n*kat) << "i\n";
+              
+  }
+
+  Zespolona add(Zespolona* z) {
+    return {this->re + z.re, this->im + z.im};
+  }
+
+  Zespolona subtract(Zespolona* z) {
+    return {this->re - z.re, this->im - z.im};
+  }
+
+  Zespolona mult(Zespolona* z) {
+    return {this->re * z.re - this->im * z.im, this->re * z.im + this->im * z.re};
+  }
+
+  Zespolona divide(Zespolona* z) {
+    if (z.re == 0 && z.im == 0) std::cout << "UWAGA: dzielisz przez 0 + 0i\n";
+    
+    return {(this->re * z.re + this->im * z.im)/(pow(z.re, 2) + pow(z.im, 2)), (z.re * this->im - this->re * z.im)/(pow(z.re, 2) + pow(z.im, 2))}
   }
 
 private:
-   double acot(double kat) {
+   double acot(double kat) { // arcctg
      return M_PI/2 - atan(kat);
    }
    double mod() {
@@ -54,12 +86,31 @@ private:
      else if (re == 0 && im > 0) {
        return M_PI/2;
      }
+     else if (re == 0 && im < 0) {
+       return -M_PI/2;
+     }
      else {
        return nanf(""); // NaN
      }
    } 
-}
+};
 
 int main() {
+  Zespolona z1;
+  z1.re = 1;
+  z1.im = sqrt(3);
+
+  Zespolona z2;
+  z2.re = sqrt(3);
+  z2.im = 1;
+
+  z1.printCan();
+  z2.printCan();
+
+  z1.printTrig();
+  z2.printTrig();
+
+  std::cout << "\n" << z1.divide(&z2) << "\n"; 
+  
   return 0;
 }
