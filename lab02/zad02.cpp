@@ -49,11 +49,11 @@ public:
   }
 
   Zespolona add(Zespolona* z) {
-    return {this->re + z.re, this->im + z.im};
+    return {this->re + z->re, this->im + z->im};
   }
 
   Zespolona subtract(Zespolona* z) {
-    return {this->re - z.re, this->im - z.im};
+    return {this->re - z->re, this->im - z->im};
   }
 
   Zespolona mult(Zespolona* z) {
