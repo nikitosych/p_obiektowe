@@ -1,4 +1,3 @@
-
 #include <iostream>
 using namespace std;
 
@@ -7,17 +6,17 @@ protected:
     double wzrost;
 public:
     void get_wzrost() {
-        cout << "Podaj wzrost: " << endl;
+        cout << "Podaj wzrost: ";
         cin >> wzrost;
     }
 };
 
-class Chlopak {
+class Chlopak : public Czlowiek {
 protected:
     double waga;
 public:
     void get_waga() {
-        cout << "Podaj wage: " << endl;
+        cout << "Podaj wage: ";
         cin >> waga;
     }
 };
@@ -27,7 +26,7 @@ protected:
     double liczba;
 public:
     void get_liczba() {
-        cout << "Podaj ulubiona liczbe " << endl;
+        cout << "Podaj ulubiona liczbe: ";
         cin >> liczba;
     }
 };
@@ -35,10 +34,10 @@ public:
 class IDziewczynaIChlopak : public Chlopak, public Dziewczyna {
 public:
     void bmi() {
-        get_wzrost();
+        Dziewczyna::get_wzrost(); // Uzywamy metody z klasy dziewczyny
         get_waga();
         get_liczba();
-        cout << "BMI wynosi: " << (waga / (wzrost * wzrost)) / liczba << endl;
+        cout << "BMI wynosi: " << (waga / (Dziewczyna::wzrost * Dziewczyna::wzrost)) / liczba << endl;
     }
 };
 
