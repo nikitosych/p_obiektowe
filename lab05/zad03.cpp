@@ -23,8 +23,9 @@ public:
     return this->divide(z);
   }
 
-  void operator++ () {
+  void operator++ (int) {
     this->re++;
+    this->im++;
   }
 
   bool operator< (Zespolona& z) {
@@ -154,6 +155,8 @@ int main() {
   
   std::cout << "Wprowadz czesc Re i Im:";
   std::cin >> z3;
+  z3++;
+  std::cout << z3;
   std::cout << z2/z3 << "\n";
 
   return 0;
