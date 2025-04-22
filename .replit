@@ -151,3 +151,66 @@ author = 40025330
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "g++ -o lab06/zad01 lab06/zad01.cpp && ./lab06/zad01"
+
+[[workflows.workflow]]
+name = "lab06zad02"
+mode = "sequential"
+author = 40025330
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "g++ -o lab06/zad02 lab06/zad02.cpp && ./lab06/zad02"
+
+[[workflows.workflow]]
+name = "lab07zad02"
+mode = "sequential"
+author = 40025330
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "g++ -o lab07/zad02 lab07/zad02.cpp && ./lab07/zad02"
+
+[[workflows.workflow]]
+name = "lab07zad04"
+mode = "sequential"
+author = 40025330
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "g++ -o lab07/zad04 lab07/zad04.cpp && ./lab07/zad04"
+
+[[workflows.workflow]]
+name = "lab07zad05"
+mode = "sequential"
+author = 40025330
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "g++ -o lab07/zad05 lab07/zad05.cpp && ./lab07/zad05"
+
+[[workflows.workflow]]
+name = "lab07zad06"
+mode = "sequential"
+author = 40025330
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "g++ -o lab07/zad06 lab07/zad06.cpp && ./lab07/zad06"
+
+[[workflows.workflow]]
+name = "lab07zad07"
+mode = "sequential"
+author = 40025330
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "g++ -o lab07/zad07 lab07/zad07.cpp && ./lab07/zad07"
+
+[[workflows.workflow]]
+name = "lab08zad01"
+mode = "sequential"
+author = 40025330
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "g++ -o lab08/zad01 lab08/zad01.cpp && ./lab08/zad01"
