@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <cmath>
 
@@ -11,73 +12,70 @@ public:
 
 class Trojkat {
 private:
-double bok1, bok2, bok3;
+  double bok1, bok2, bok3;
+  Punkt w1, w2, w3; // wierzcholki trojkata, numer odpowiada numerowi boku
 
-Punkt w1, w2, w3; // wierzcholki trojkata, numer odpowiada numerowi boku
-
-bool czyTrojkat() {
-  if (bok1 <= 0 || bok2 <= 0 || bok3 <= 0)
-    return false;
-
-  return true;
-}
+  bool czyTrojkat() {
+    if (bok1 <= 0 || bok2 <= 0 || bok3 <= 0)
+      return false;
+    return true;
+  }
 
 public:
-double bok(unsigned short nrBoku) {// getter dla boku
-  switch(nrBoku) {
-  case 1:
-    return bok1;
-  case 2:
-    return bok2;
-  case 3:
-    return bok3;
-  default:
-    throw out_of_range("Sprobowales wypisac bok o numerze poza zakresem ilosci bokow trojkata");
-  }
-}
-};
-
-double w(unsigned short nrWierszcholku) {// getter dla wierzcholka
-  switch(nrWierszcholku) {
-    case 1:
-      return w1;
-    case 2:
-      return w2;
-    case 3:
-      return w3;
-    default:
-      throw out_of_range("Sprobowales wypisac wierzcholek o numerze poza zakresem ilosci wierzcholkow trojkata");
-  }
-
-bool czyRownoramienny(void) {
-  for (int i = 1; i <= 3; ++i) {
-    for (int j = 1; j <= 3; ++j) {
-      if (i == j) continue;
-
-      if (bok(i) == bok(3))
-        return true;
+  double bok(unsigned short nrBoku) { // getter dla boku
+    switch(nrBoku) {
+      case 1:
+        return bok1;
+      case 2:
+        return bok2;
+      case 3:
+        return bok3;
+      default:
+        throw out_of_range("Sprobowales wypisac bok o numerze poza zakresem ilosci bokow trojkata");
     }
   }
 
-  return false;
-}
+  Punkt w(unsigned short nrWierzcholka) { // getter dla wierzcholka
+    switch(nrWierzcholka) {
+      case 1:
+        return w1;
+      case 2:
+        return w2;
+      case 3:
+        return w3;
+      default:
+        throw out_of_range("Sprobowales wypisac wierzcholek o numerze poza zakresem ilosci wierzcholkow trojkata");
+    }
+  }
 
-double liczPole(void) {
-  const auto p = obwod() / 2;
-  
-  return sqrt(p*(p-bok1)*(p-bok2)*(p-bok3));
-}
+  bool czyRownoramienny() {
+    for (int i = 1; i <= 3; ++i) {
+      for (int j = 1; j <= 3; ++j) {
+        if (i == j) continue;
+        if (bok(i) == bok(j))
+          return true;
+      }
+    }
+    return false;
+  }
 
-double obwod() {
-  return bok1 + bok2 + bok3;
-}
+  double liczPole() {
+    const auto p = obwod() / 2;
+    return sqrt(p*(p-bok1)*(p-bok2)*(p-bok3));
+  }
 
-Trojkat(double bok1, double bok2, double bok3) : bok1(bok1), bok2(bok2), bok3(bok3) {
-  if (!czyTrojkat())
-    throw invalid_argument("Boki musza byc dodatnimi liczbami rzeczywistymi, wiecej od zera.");
-}
+  double obwod() {
+    return bok1 + bok2 + bok3;
+  }
 
-Trojkat() : Trojkat(1,1,1) {}
+  Trojkat(double bok1, double bok2, double bok3) 
+    : bok1(bok1), bok2(bok2), bok3(bok3), 
+      w1(0,0), w2(0,0), w3(0,0) {
+    if (!czyTrojkat())
+      throw invalid_argument("Boki musza byc dodatnimi liczbami rzeczywistymi, wiecej od zera.");
+  }
+
+  Trojkat() : Trojkat(1,1,1) {}
 };
 
 int main() {
@@ -86,7 +84,6 @@ int main() {
 
   cout << d.czyRownoramienny() << endl;
   cout << t.liczPole() << endl;
-
   
   return 0;
 }
