@@ -7,7 +7,7 @@ channel = "stable-24_05"
 run = ["sh", "-c", "g++ -o lab01/main lab01/main.cpp"]
 
 [workflows]
-runButton = "lab03zad06"
+runButton = "lab10zad01"
 
 [[workflows.workflow]]
 name = "lab01zad01"
@@ -214,3 +214,12 @@ author = 40025330
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "g++ -o lab08/zad01 lab08/zad01.cpp && ./lab08/zad01"
+
+[[workflows.workflow]]
+name = "lab10zad01"
+mode = "sequential"
+author = 40025330
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "g++ -o lab10/zad01 lab10/zad01.cpp && ./lab10/zad01"
