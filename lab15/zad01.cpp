@@ -4,7 +4,7 @@
 #include <fstream>
 #include <vector>
 
-#define nullptr null
+
 
 using namespace std;
 
@@ -89,7 +89,7 @@ inline static map<string, string> funkcje = {
 class Parser {
 public:
 
-static vector<string> split(const string& s, char delimiter = " ") {
+static vector<string> split(const string& s, char delimiter = ' ') {
     vector<string> slowy;
     string slowo;
 
@@ -126,6 +126,7 @@ static void read(string filename, deque<Pracownik>& buffer) {
     
     buffer.push_back(Pracownik(frags[0], frags[1], frags[2], frags[3], kierownik));
   }
+};
 };
 
 int main() 
