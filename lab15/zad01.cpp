@@ -3,12 +3,9 @@
 #include <map>
 #include <fstream>
 #include <vector>
-
-
+#include <algorithm>
 
 using namespace std;
-
-
 
 class Pracownik {
 private:
@@ -20,8 +17,7 @@ private:
   bool kobieta;
 
 public:
-Pracownik(string wydzial, string funkcja, string imie, string nazwisko, bool kierownik, bool kobieta) 
-{
+Pracownik(string wydzial, string funkcja, string imie, string nazwisko, bool kierownik, bool kobieta) {
   bool err = true;
   // Sprawdzamy wydzial
   for (auto w : wydzialy) {
@@ -58,6 +54,40 @@ Pracownik(string wydzial, string funkcja, string imie, string nazwisko, bool kie
   // Automatycznie przypisujemy plec w sposób prymitywny
 }
 
+string getWydzial() const {
+  return wydzial;
+}
+
+string getFunkcja() const {
+  return funkcja;
+}
+
+string getImie() const {
+  return imie;
+}
+
+string getNazwisko() const {
+  return nazwisko;
+}
+
+bool isKierownik() const {
+  return kierownik;
+}
+
+bool isKobieta() const {
+  return kobieta;
+}
+
+// prosta funkcja do znalezenia indeksu elementu w deque
+// https://www.geeksforgeeks.org/std-find-in-cpp/
+static int indexof(Pracownik &target, deque<Pracownik> &deq) {
+  auto it = find(deq.begin(), deq.begin(), target);
+
+  if (it != deq.end()) {
+    return distance(deq.begin(), it);
+  } else { return -1; }
+}
+
 // Proszę Pana się upewnić że kompilator jest wersji C++17 lub wyżej ze wzgledu na 'inline'
 inline static map<string, string> wydzialy = {
   {
@@ -84,6 +114,15 @@ inline static map<string, string> funkcje = {
   {"mgr", "Magister"}
 };
 
+};
+
+enum class rule {
+  WYDZIAL,
+  FUNKCJA,
+  IMIE,
+  NAZWISKO,
+  KIEROWNIK,
+  NONE
 };
 
 class Parser {
@@ -127,9 +166,33 @@ static void read(string filename, deque<Pracownik>& buffer) {
     buffer.push_back(Pracownik(frags[0], frags[1], frags[2], frags[3], kierownik));
   }
 };
+
+static void sortx(rule rule, deque<Pracownik>& buffer) {
+  switch (rule) {
+    case rule::WYDZIAL:
+      sort(buffer.begin(), buffer.end(), [](Pracownik& a, Pracownik& b) {
+        return a.getWydzial().compare(b.getWydzial()) < 0;
+      });
+      break;
+    case rule::FUNKCJA:
+      
+      break;
+    default: break;
+  }
+}
 };
+
+
 
 int main() 
 {
+  // testujemy
+  deque<Pracownik> pracownicy;
+  // proszę zmienić ścieżkę do pliku na właściwą na Pana komputerze
+  Parser::read("lab15/wi_uwb.txt", pracownicy);
+  Parser::sortx(rule::WYDZIAL, pracownicy);
+  for (auto p : pracownicy)
+  cout << (p.isKobieta() ? "Pani" : "Pan") << " " << p.getImie() << " " << p.getNazwisko() << " " << p.getWydzial() << " " << p.getFunkcja() << " " << (p.isKierownik() ? "KIEROWNIK" : "") << endl;
+  
   return 0;
 }
