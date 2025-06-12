@@ -10,7 +10,12 @@ public:
   Punkt(int x, int y) : x(x), y(y) {}
 };
 
-class Trojkat {
+class Figura {
+  virtual double liczPole() = 0;
+  virtual bool czyRownoramienny() = 0;
+};
+
+class Trojkat : public Figura {
 private:
   double bok1, bok2, bok3;
   Punkt w1, w2, w3; // wierzcholki trojkata, numer odpowiada numerowi boku
@@ -48,7 +53,7 @@ public:
     }
   }
 
-  bool czyRownoramienny() {
+  bool czyRownoramienny() override {
     for (int i = 1; i <= 3; ++i) {
       for (int j = 1; j <= 3; ++j) {
         if (i == j) continue;
@@ -59,7 +64,7 @@ public:
     return false;
   }
 
-  double liczPole() {
+  double liczPole() override {
     const auto p = obwod() / 2;
     return sqrt(p*(p-bok1)*(p-bok2)*(p-bok3));
   }
@@ -68,22 +73,80 @@ public:
     return bok1 + bok2 + bok3;
   }
 
-  Trojkat(double bok1, double bok2, double bok3) 
-    : bok1(bok1), bok2(bok2), bok3(bok3), 
-      w1(0,0), w2(0,0), w3(0,0) {
+  Trojkat(Punkt w1, Punkt w2, Punkt w3) : w1(w1), w2(w2), w3(w3) 
+  {
+    bok1 = sqrt(pow((w2.x - w1.x), 2) + pow((w2.y - w1.y), 2));
+    bok2 = sqrt(pow((w3.x - w2.x), 2) + pow((w3.y - w2.y), 2));
+    bok3 = sqrt(pow((w1.x - w3.x), 2) + pow((w1.y - w3.y), 2));
+
     if (!czyTrojkat())
-      throw invalid_argument("Boki musza byc dodatnimi liczbami rzeczywistymi, wiecej od zera.");
+       throw invalid_argument("Boki musza byc dodatnimi liczbami rzeczywistymi, wiecej od zera.");
   }
 
-  Trojkat() : Trojkat(1,1,1) {}
+  Trojkat() : Trojkat(Punkt(0,0), Punkt(1,0), Punkt(0,1)) {}
+
+  Trojkat(int w1x, int w1y, int w2x, int w2y, int w3x, int w3y) : Trojkat(Punkt(w1x, w1y), Punkt(w2x, w2y), Punkt(w3x, w3y)) {}
+
+  ~Trojkat() {
+    cout << "Destruktor wywolany" << endl;
+  }
+
+  void operator* (double s) {
+    bok1 *= s;
+    bok2 *= s;
+    bok3 *= s;
+  }
+
+  Trojkat operator* (Trojkat t) {
+    return Trojkat(Punkt(0,0), Punkt(t.bok1, 0), Punkt(0, t.bok2));
+  }
 };
 
-int main() {
-  Trojkat t(2, 3, 4);
-  Trojkat d(2, 3, 3);
+class Graniastoslup : public Figura {
+private:
+  Trojkat podstawa;
+  double wysokosc;
 
-  cout << d.czyRownoramienny() << endl;
+public:
+  double liczObjetosc() {
+    return podstawa.liczPole() * wysokosc;
+  }
+
+  void opiszBryle() {
+    cout << "Bryla jest graniastoslupem o podstawie bedacej trojkatem o polu " << podstawa.liczPole() << " i wysokosci " << wysokosc << endl;
+  }
+
+  double liczPole() override {
+    return 2 * podstawa.liczPole() + podstawa.obwod() * wysokosc;
+  }
+
+  bool czyRownoramienny() override {
+    return podstawa.czyRownoramienny();
+  }
+
+  
+  Graniastoslup(Trojkat podstawa, double wysokosc) : podstawa(podstawa), wysokosc(wysokosc) {}
+};
+
+
+int main() {
+  Trojkat t(Punkt(0,0), Punkt(0,1), Punkt(1,0));
   cout << t.liczPole() << endl;
+  t * 2;
+  cout << t.liczPole() << endl;
+  cout << t.czyRownoramienny() << endl;
+
+  Graniastoslup g(Trojkat(), 1);
+  g.opiszBryle();
+  cout << "Objetosc Graniastoslupa wynosi " << g.liczObjetosc() << endl;
+  
+  Figura *figury[3] = {new Trojkat(0,0,0,1,1,0), new Trojkat(0,0,0,1,1,1), new Trojkat(0,0,1,0,1,1)};
+
+  Trojkat t2 = t * Trojkat(Punkt(2,3), Punkt(4,3), Punkt(4, 5));
+
+  cout << t2.liczPole() << endl;
+  cout << t2.czyRownoramienny() << endl;
+  cout << t2.obwod() << endl;
   
   return 0;
 }

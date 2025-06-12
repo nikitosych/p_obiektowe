@@ -7,7 +7,7 @@ channel = "stable-24_05"
 run = ["sh", "-c", "g++ -o lab01/main lab01/main.cpp"]
 
 [workflows]
-runButton = "kolokwium"
+runButton = "lab15zad01"
 
 [[workflows.workflow]]
 name = "lab01zad01"
@@ -232,3 +232,12 @@ author = 40025330
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "g++ -o kolos_poprawa/kolokwium kolos_poprawa/kolokwium.cpp && ./kolos_poprawa/kolokwium"
+
+[[workflows.workflow]]
+name = "lab15zad01"
+mode = "sequential"
+author = 40025330
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "g++ -o lab15/zad01 lab15/zad01.cpp && ./lab15/zad01"
