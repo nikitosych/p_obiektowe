@@ -78,10 +78,21 @@ bool isKobieta() const {
   return kobieta;
 }
 
+bool operator==(const Pracownik& p) const {
+  return (
+    this->getWydzial() == p.getWydzial() &&
+    this->getFunkcja() == p.getFunkcja() &&
+    this->getImie() == p.getImie() &&
+    this->getNazwisko() == p.getNazwisko() &&
+    this->isKierownik() == p.isKierownik() &&
+    this->isKobieta() == p.isKobieta()
+  );
+}
+
 // prosta funkcja do znalezenia indeksu elementu w deque
 // https://www.geeksforgeeks.org/std-find-in-cpp/
 static int indexof(Pracownik &target, deque<Pracownik> &deq) {
-  auto it = find(deq.begin(), deq.begin(), target);
+  auto it = find(deq.begin(), deq.end(), target);
 
   if (it != deq.end()) {
     return distance(deq.begin(), it);
@@ -107,17 +118,17 @@ inline static map<string, string> wydzialy = {
   }
   }; 
 
-inline static map<string, string> funkcje = {
-  {"prof", "Profesor"},
-  {"dr_hab", "Doktor habilitowany"},
-  {"dr", "Doktor"},
-  {"mgr", "Magister"}
+inline static map<string, int> funkcje = {
+  {"prof", 1},
+  {"dr_hab", 2},
+  {"dr", 3},
+  {"mgr", 4}
 };
 
 };
 
 enum class rule {
-  WYDZIAL,
+  WYDZIAL, 
   FUNKCJA,
   IMIE,
   NAZWISKO,
@@ -171,11 +182,32 @@ static void sortx(rule rule, deque<Pracownik>& buffer) {
   switch (rule) {
     case rule::WYDZIAL:
       sort(buffer.begin(), buffer.end(), [](Pracownik& a, Pracownik& b) {
-        return a.getWydzial().compare(b.getWydzial()) < 0;
+        return a.getWydzial() < b.getWydzial();
       });
       break;
     case rule::FUNKCJA:
-      
+      sort(buffer.begin(), buffer.end(), [](const Pracownik& a, const Pracownik& b) {
+        if (a.isKierownik() != b.isKierownik())
+          return a.isKierownik() > b.isKierownik();  // kierownicy w 1 kolejnosci
+        return Pracownik::funkcje.at(a.getFunkcja()) < Pracownik::funkcje.at(b.getFunkcja());   // potem według wagi funkcji
+      });
+    break;
+    case rule::IMIE:
+      sort(buffer.begin(), buffer.end(), [](Pracownik& a, Pracownik& b) {
+        return a.getImie() < b.getImie();
+      });
+      break;
+    case rule::NAZWISKO:
+      sort(buffer.begin(), buffer.end(), [](Pracownik& a, Pracownik& b) {
+        return a.getNazwisko() < b.getNazwisko();
+      });
+      break;
+    case rule::KIEROWNIK:
+      sort(buffer.begin(), buffer.end(), [](Pracownik& a, Pracownik& b) {
+        return a.isKierownik() > b.isKierownik();
+      });
+      break;
+    case rule::NONE: // czyli nie sortujemy
       break;
     default: break;
   }
@@ -190,7 +222,7 @@ int main()
   deque<Pracownik> pracownicy;
   // proszę zmienić ścieżkę do pliku na właściwą na Pana komputerze
   Parser::read("lab15/wi_uwb.txt", pracownicy);
-  Parser::sortx(rule::WYDZIAL, pracownicy);
+  Parser::sortx(rule::FUNKCJA, pracownicy);
   for (auto p : pracownicy)
   cout << (p.isKobieta() ? "Pani" : "Pan") << " " << p.getImie() << " " << p.getNazwisko() << " " << p.getWydzial() << " " << p.getFunkcja() << " " << (p.isKierownik() ? "KIEROWNIK" : "") << endl;
   
