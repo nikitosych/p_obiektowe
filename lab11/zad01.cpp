@@ -4,12 +4,12 @@
 
 using namespace std;
 
-vector<int> znajdz_dzielniki(string nr_albumu) {
+vector<int> znajdz_dzielniki(string album) {
     vector<int> dzielniki;
 
     int liczba = 0;
 
-    for (char c : nr_albumu) {
+    for (char c : album) {
         liczba += (c - '0'); // konwersja znaku na cyfre
     }
     
@@ -21,8 +21,8 @@ vector<int> znajdz_dzielniki(string nr_albumu) {
     return dzielniki;
 }
 
-void generuj_graf(const vector<int>& dzielniki, const string& nazwa_pliku) {
-    ofstream plik(nazwa_pliku);
+void generuj_graf(const vector<int>& dzielniki, const string& filename) {
+    ofstream plik(filename);
 
     if (!plik.is_open()) {
         cout << "Nie udalo sie otworzyc pliku do zapisu." << endl;
